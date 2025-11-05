@@ -1,0 +1,33 @@
+{% extends 'common_code/base.html' %}
+{% load static %}
+{% block title %}form{% endblock  %}
+{% block content %}
+<form action="" method='POST'>
+    {% csrf_token %}
+    <div>
+        <label for="date">Date : </label>
+        <input type="date" id="date" name="date">
+    </div>
+    <div>
+        <label for="location">location : </label>
+        <input type="text" id="location" name="location">
+    </div>
+    <div>
+        <span>Vehicle : </span>
+        
+        <input type="checkbox" id="vehicle" name="Bus" value="Bus">
+        <label for="vehicle">Bus : </label>
+        <input type="checkbox" id="vehicle2" name="Motorcycle" value="Motorcycle">
+        <label for="vehicle2">Motorcycle : </label>
+        <input type="checkbox" id="vehicle3" name="Bugatti" value="Bugatti">
+        <label for="vehicle3">Bugatti : </label>
+    </div>
+    <div>
+        <label for="friends">Friends : </label>
+        <input type="text" id="friends" name="friends">
+    </div>  
+    <div>
+        <input type="submit" value="Submit">
+    </div>
+</form>
+{% endblock  %}

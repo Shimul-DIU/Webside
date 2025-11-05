@@ -1,0 +1,55 @@
+{% extends "common_code/base.html" %}
+{% load static %}
+{% block title %}Form{% endblock %}
+{% block content %}
+
+<div class="flex flex-col md:flex-row items-center  justify-center gap-6 rounded-md p-4">
+    
+    <div class="h-96 rounded-md basis-2/5  flex items-center flex-col ">
+      <img src="{% static img %}" alt="{{ name }}" class="h-2/3" >
+        <span> <h3 class=" text-2lg font-semibold text-center" >{{ name }}</h3></span><br>
+        <span> <h3 class="text-xl  ">{{ tk }} &#2547;</h3></span>
+    </div><!-- Image Section -->
+    <br><br>
+    <!-- Form Section -->
+     <div class="basis-2/5">
+      <form action="" method="POST" class="bg-white p-6 rounded-md shadow-md h-2/3 w-full md:w-2/3">
+        {% csrf_token %}
+        
+        <div class="mb-4 flex flex-col sm:flex-row items-start sm:items-center">
+            <label for="name" class="sm:w-32 text-sm font-medium text-gray-700 mb-1 sm:mb-0">Name:</label>
+            <input type="text" id="name" name="name" placeholder="Given name" class="flex-1 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 w-full" required>
+        </div>
+
+        <div class="mb-4 flex flex-col sm:flex-row items-start sm:items-center">
+            <label for="phoneNumber" class="sm:w-32 text-sm font-medium text-gray-700 mb-1 sm:mb-0">Phone Number:</label>
+            <input type="number" id="phoneNumber" name="phoneNumber" placeholder="Enter your phone number" class="flex-1 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 w-full" required>
+        </div>
+        <div class="mb-4 flex flex-col sm:flex-row items-start sm:items-center text-black">
+          <p class="pay">Payment Method: </p>
+           <input type="radio" id="payment" name="payment" value="Bkash" class="flex-1 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 w-full" required>
+            <label for="payment" class="sm:w-32 text-sm font-medium text-gray-700 mb-1 sm:mb-0">Bkash:</label>
+           <input type="radio" id="payment" name="payment" value="Nagad" class="flex-1 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 w-full" required>
+            <label for="payment2" class="sm:w-32 text-sm font-medium text-gray-700 mb-1 sm:mb-0">Nagad:</label>
+            <input type="radio" id="payment" name="payment" value="Rocket"  class="flex-1 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 w-full" required>
+            <label for="payment3" class="sm:w-32 text-sm font-medium text-gray-700 mb-1 sm:mb-0">Rocket:</label>
+            
+        </div>
+
+        <div class="mb-4 flex flex-col sm:flex-row items-start sm:items-center">
+            <label for="address" class="sm:w-32 text-sm font-medium text-gray-700 mb-1 sm:mb-0">Address:</label>
+            <input type="text" id="address" name="address" placeholder="Enter your address" class="flex-1 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 w-full" required>
+        </div>
+
+        <div class="mb-4 flex flex-col sm:flex-row items-start sm:items-center">
+            <label for="quantity" class="sm:w-32 text-sm font-medium text-gray-700 mb-1 sm:mb-0">Quantity:</label>
+            <input type="number" id="quantity" name="quantity" placeholder="Number of products" min="1" step="1" class="flex-1 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 w-full" required>
+        </div>
+
+        <button type="submit" class="w-full bg-blue-600 py-2 rounded-md hover:bg-blue-700 transition">Submit</button>
+    </form>
+     </div>
+    
+</div>
+
+{% endblock %}

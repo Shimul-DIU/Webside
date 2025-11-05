@@ -1,0 +1,32 @@
+{% extends "common_code/base.html" %}
+{% load static %}
+{% block title %}Form{% endblock %}
+{% block content %}
+<img src="{% static 'Images/BridalPolki.jpg' %}" alt="" class="h-52">
+<form action="" method="post" class="bg-white p-4 rounded-md shadow-md max-w-md mx-auto">
+    {% csrf_token %}
+    
+    <div class="border border-gray-300 p-3 mb-4 rounded-md flex items-center">
+        <label for="name" class="w-32 text-sm font-medium text-gray-700">Name:</label>
+        <input type="text" id="name" name="name" placeholder="Given name" class="flex-1 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+    </div>
+
+    <div class="border border-gray-300 p-3 mb-4 rounded-md flex items-center">
+        <label for="phoneNumber" class="w-32 text-sm font-medium text-gray-700">Phone Number:</label>
+        <input type="number" id="phoneNumber" name="phoneNumber" placeholder="Enter your phone number" class="flex-1 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+    </div>
+
+    <div class="border border-gray-300 p-3 mb-4 rounded-md flex items-center">
+        <label for="address" class="w-32 text-sm font-medium text-gray-700">Address:</label>
+        <input type="text" id="address" name="address" placeholder="Enter your address" class="flex-1 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+    </div>
+
+    <div class="border border-gray-300 p-3 mb-4 rounded-md flex items-center">
+        <label for="quantity" class="w-32 text-sm font-medium text-gray-700">Quantity:</label>
+        <input type="number" id="quantity" name="quantity" placeholder="Number of products" min="1" step="1" class="flex-1 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+    </div>
+
+    <button type="submit" class="w-full bg-blue-600 text-white py-2 rounded-md hover:bg-blue-700 transition">Submit</button>
+</form>
+<h1 class="text-3xl text-center">{{ message }}</h1>
+{% endblock %}

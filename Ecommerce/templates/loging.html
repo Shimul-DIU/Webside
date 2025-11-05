@@ -1,0 +1,53 @@
+{% extends "common_code/base.html" %}
+{% load static %}
+{% block title %}Login{% endblock %}
+{% block content %}
+<div class="container mx-auto px-4 py-8 flex justify-center items-center min-h-screen">
+    <div class="bg-white p-6 md:p-8 rounded shadow-md w-full max-w-sm">
+        <h2 class="text-2xl font-bold mb-6 text-center text-gray-800">Login</h2>
+
+        <form method="POST">
+            {% csrf_token %}
+            
+            <div class="mb-4">
+                <label class="block text-gray-700 mb-2" for="username">Username</label>
+                <input type="text" name="username" id="username" required
+                       class="w-full px-4 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500">
+            </div>
+
+            <div class="mb-6">
+                <label class="block text-gray-700 mb-2" for="password">Password</label>
+                <input type="password" name="password" id="password" required
+                       class="w-full px-4 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500">
+            </div>
+
+            <button type="submit" 
+                    class="w-full bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 transition duration-200 cursor-pointer">
+                Submit
+            </button>
+            
+            <div class="mt-4 text-center">
+                <a href="{% url 'register' %}" class="text-blue-500 hover:text-blue-700 transition duration-200">
+                    Create Account
+                </a>
+            </div>
+        </form>
+
+        {% if message %}
+        <div class="mt-4 p-2 bg-yellow-100 text-yellow-800 rounded text-center">
+            {{ message }}
+        </div>
+        {% endif %}
+
+        {% if messages %}
+        <div class="mt-4">
+            {% for message in messages %}
+            <div class="p-2 bg-red-100 text-red-800 rounded text-center">
+                {{ message }}
+            </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

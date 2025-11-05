@@ -1,0 +1,415 @@
+{% extends "common_code/base.html" %}
+{% load static %}
+{% block title %}Home{% endblock %}
+{% block content %}
+{% comment %} <h1><a href="{% url 'product' %}">purchase</a></h1> {% endcomment %}
+
+<!-- Hero Section -->
+<div class="flex flex-col-reverse md:flex-row items-center justify-around gap-6 p-4">
+  <!-- Text Section -->
+  <div class="w-full md:w-1/2 text-center md:text-left">
+    <p class="font-bold text-pink-400 text-sm md:text-2xl">Trending item</p>
+    <span class="font-bold text-base md:text-4xl uppercase block">Women's latest <br>Fashion sale</span>
+    <p class="text-sm mt-2">Starting at $20.00</p>
+    <button class="mt-4 bg-red-400 rounded-md py-2 px-4 text-white hover:bg-black transition duration-300 w-3/4 md:w-2/3">Shop now</button>
+  </div>
+
+  <!-- Image Section -->
+  <div class="w-full md:w-1/2 flex justify-center hover:scale-105">
+    <img src="{% static 'Images/Copilot_20251022_120054.png' %}" alt="Fashion Banner" class="max-w-full h-auto rounded-md shadow-md">
+  </div>
+</div>
+
+<!-- Top Categories -->
+<section class="p-4 bg-white shadow">
+  <h2 class="text-xl font-bold mb-4">Top Categories</h2>
+  <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
+    <div class="text-center bg-gray-50 p-2 rounded hover:bg-gray-100 transition cursor-pointer">👗 Dress & Frock</div>
+    <div class="text-center bg-gray-50 p-2 rounded hover:bg-gray-100 transition cursor-pointer">🧥 Winter Wear</div>
+    <div class="text-center bg-gray-50 p-2 rounded hover:bg-gray-100 transition cursor-pointer">👓 Glasses & Lens</div>
+    <div class="text-center bg-gray-50 p-2 rounded hover:bg-gray-100 transition cursor-pointer">👖 Shorts & Jeans</div>
+  </div>
+</section>
+
+<!-- Main Content -->
+<div class="flex flex-col lg:flex-row p-4 gap-4">
+  <!-- Sidebar -->
+  <aside class="lg:w-1/4 bg-gray-200 p-4 shadow rounded sticky top-32 h-[calc(100vh-2rem)] overflow-y-auto">
+    <h1 class=" mb-4 text-2xl font-bold bg-white rounded p-2 ">Category</h1>
+    <div class="border bg-white p-2 rounded-md">
+      
+      <ul>
+        <li class="hover:text-blue-600  hover:bg-gray-200 cursor-pointer transition">👕 Clothes</li>
+        <li class="hover:text-blue-600  hover:bg-gray-200 cursor-pointer transition">👟 Footwear</li>
+        <li class="hover:text-blue-600  hover:bg-gray-200 cursor-pointer transition">💍 Jewelry</li>
+        <li class="font-bold hover:bg-gray-200  text-blue-600">🌸 Perfume</li>
+        <li class="hover:text-blue-600 hover:bg-gray-200  cursor-pointer transition">💄 Cosmetics</li>
+        <li class="hover:text-blue-600  hover:bg-gray-200 cursor-pointer transition">🕶️ Glasses</li>
+        <li class="hover:text-blue-600  hover:bg-gray-200 cursor-pointer transition">👜 Bags</li>
+      </ul>
+        
+      </ul>
+    </div>
+
+    <div class="mt-6">
+      <h2 class="text-2xl font-bold mb-2 bg-white rounded p-2 ">Best Sellers</h2>
+      <div class="space-y-4">
+        <!-- Product Card 1 -->
+        <a href="{% url 'order' %}?name=Baby+Fabric+Shoes&img=Images/1.jpg&tk=4.00">
+          <div class="bg-white shadow rounded flex flex-row p-4 text-center hover:shadow-lg transition cursor-pointer">
+           <div class="basis-1/2">
+             <img src="{% static 'Images/1.jpg' %}" alt="Baby Fabric Shoes" class="mx-auto mb-3 rounded ">
+           </div>
+           <div class="basis-1/2">
+            <h3 class="font-semibold   prodt ">Baby Fabric Shoes</h3>
+            <p class="text-yellow-500 text-sm">★★★★★</p>
+            <p class="line-through text-gray-500 text-sm">$5.00</p>
+            <p class="text-red-600 font-bold">$4.00</p>
+           </div>
+          </div>
+        </a>
+        
+        <!-- Product Card 2 -->
+        <a href="{% url 'order' %}?name=Kids+Party+Dress&img=Images/2.jpg&tk=25.00">
+          <div class="bg-white shadow flex rounded p-4 text-center hover:shadow-lg transition cursor-pointer">
+           <div class="basis-1/2">
+             <img src="{% static 'Images/2.jpg' %}" alt="Kids Dress" class="mx-auto mb-3 rounded">
+           </div>
+           <div class="basis-1/2">
+            <h3 class="font-semibold  prodt ">Kids Party Dress</h3>
+            <p class="text-yellow-500 text-sm">★★★★☆</p>
+            <p class="line-through text-gray-500 text-sm">$30.00</p>
+            <p class="text-red-600 font-bold">$25.00</p>
+           </div>
+          </div>
+        </a>
+        
+        <!-- Product Card 3 -->
+        <a href="{% url 'order' %}?name=Women%27s+Jumpsuit&img=Images/3.jpg&tk=39.00">
+          <div class="bg-white flex shadow rounded p-4 text-center hover:shadow-lg transition cursor-pointer">
+            <div class="basis-1/2"><img src="{% static 'Images/3.jpg' %}" alt="Jumpsuit" class="mx-auto mb-3 rounded"></div>
+            <div class="basis-1/2">
+                <h3 class="font-semibold  prodt ">Women's Jumpsuit</h3>
+            <p class="text-yellow-500 text-sm">★★★★★</p>
+            <p class="line-through text-gray-500 text-sm">$45.00</p>
+            <p class="text-red-600 font-bold">$39.00</p>
+            </div>
+          </div>
+        </a>
+      </div>
+    </div>
+  </aside>
+  
+  <!-- Product Sections -->
+  <main class="lg:w-3/4 space-y-6">
+    <!-- New Arrivals -->
+    <section>
+      <h3 class="text-lg font-bold mb-2">New Arrivals</h3>
+      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+        <a href="{% url 'order' %}?name=Relaxed+Short+Full+Sleeve+T-Shirt&img=Images/clothes-1.jpg&tk=445.00">
+          <div class="bg-white p-4 flex shadow rounded hover:shadow-lg hover:scale-105 transition cursor-pointer">
+          <div class="basis-2/4">
+            <img src="{% static 'Images/clothes-1.jpg' %}" alt="" >
+          </div>
+          <div class="basis-2/4">
+            <p class="font-medium  prodt ">Relaxed Short Full Sleeve T-Shirt</p>
+          <p class="text-red-500 font-bold">445.00 &#2547;</p>
+          <p class="text-sm text-gray-500">Clothes</p>
+          </div>
+        </div>
+        </a>
+        <a href="{% url 'order' %}?name=Girls+pnk+Embro+design&tk=500.00&img=Images/clothes-2.jpg">
+          <div class="bg-white p-4 flex shadow rounded hover:shadow-lg hover:scale-105 transition cursor-pointer">
+          <div class="basis-2/4">
+            <img src="{% static 'Images/clothes-2.jpg' %}" alt="" >
+          </div>
+          <div class="basis-2/4">
+            <p class="font-medium  prodt ">Girls pnk Embro design </p>
+          <p class="text-red-500 font-bold">500.00 &#2547;</p>
+          <p class="text-sm text-gray-500">Clothes</p>
+          </div>
+        </div>
+        </a>
+        <a href="{% url 'order' %}?name=Black+Floral+Wrap+cloth&img=Images/clothes-3.jpg&tk=445.00">
+          <div class="bg-white p-4 flex shadow rounded hover:shadow-lg hover:scale-105 transition cursor-pointer">
+            <div class="basis-2/4">
+              <img src="{% static 'Images/clothes-3.jpg' %}" alt="" >
+            </div>
+            <div class="basis-2/4">
+              <p class="font-medium  prodt ">Black Floral Wrap cloth</p>
+            <p class="text-red-500 font-bold">445.00 &#2547;</p>
+            <p class="text-sm text-gray-500">Clothes</p>
+            </div>
+          </div>
+        </a>
+      </div>
+    </section>
+
+    <!-- Trending -->
+    <section>
+      <h3 class="text-lg font-bold mb-2">Trending</h3>
+      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+        <a href="{% url 'order' %}?name=Trekking+%26+Running+Shoe&img=Images/shoe-3.jpg&tk=445.00">
+          <div class="bg-white p-4 flex shadow rounded hover:shadow-lg hover:scale-105 transition cursor-pointer">
+            <div class="basis-2/4">
+              <img src="{% static 'Images/shoe-3.jpg' %}" alt="" >
+            </div>
+            <div class="basis-2/4">
+              <p class="font-medium  prodt ">Trekking & Running Shoe</p>
+            <p class="text-red-500 font-bold">445.00 &#2547;</p>
+            <p class="text-sm text-gray-500">shows</p>
+            </div>
+          </div>
+        </a>
+        <a href="{% url 'order' %}?name=Relaxed+party+wear+show&img=Images/party-wear-1.jpg&tk=445.00">
+          <div class="bg-white p-4 flex shadow rounded hover:shadow-lg hover:scale-105 transition cursor-pointer">
+            <div class="basis-2/4">
+              <img src="{% static 'Images/party-wear-1.jpg' %}" alt="" >
+            </div>
+            <div class="basis-2/4">
+              <p class="font-medium  prodt ">Relaxed party wear show </p>
+            <p class="text-red-500 font-bold">445.00 &#2547;</p>
+            <p class="text-sm text-gray-500">shows</p>
+            </div>
+          </div>
+        </a>
+        <a href="{% url 'order' %}?name=Best+quality+shampoo&img=Images/shampoo.jpg&tk=445.00">
+          <div class="bg-white p-4 flex shadow rounded hover:shadow-lg hover:scale-105 transition-all duration-1000 cursor-pointer">
+            <div class="basis-2/4">
+              <img src="{% static 'Images/shampoo.jpg' %}" alt="" >
+            </div>
+            <div class="basis-2/4">
+              <p class="font-medium  prodt ">Best quality shampoo</p>
+            <p class="text-red-500 font-bold">445.00 &#2547;</p>
+            <p class="text-sm text-gray-500">shampoo</p>
+            </div>
+          </div>
+        </a>
+      </div>
+    </section>
+
+    <!-- Top Rated -->
+    <section>
+      <h3 class="text-lg font-bold mb-2">Top Rated</h3>
+      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+        <a href="{% url 'order' %}?name=Relaxed+Shows&img=Images/shoe-5.jpg&tk=445.00">
+          <div class="bg-white p-4 flex shadow rounded hover:shadow-lg hover:scale-105 transition cursor-pointer">
+            <div class="basis-2/4">
+              <img src="{% static 'Images/shoe-5.jpg' %}" alt="" >
+            </div>
+            <div class="basis-2/4">
+              <p class="font-medium  prodt ">Relaxed Shows</p>
+            <p class="text-red-500 font-bold">445.00 &#2547;</p>
+            <p class="text-sm text-gray-500">shows</p>
+            </div>
+          </div>
+        </a>
+        <a href="{% url 'order' %}?name=Relaxed+Short+Full+Sleeve+jacket&img=Images/jacket-4.jpg&tk=405.00">
+          <div class="bg-white p-4 flex shadow rounded hover:shadow-lg hover:scale-105 transition cursor-pointer">
+            <div class="basis-2/4">
+              <img src="{% static 'Images/jacket-4.jpg' %}" alt="" >
+            </div>
+            <div class="basis-2/4">
+              <p class="font-medium  prodt ">Relaxed Short Full Sleeve jacket</p>
+            <p class="text-red-500 font-bold">405.00 &#2547;</p>
+            <p class="text-sm text-gray-500">Clothes</p>
+            </div>
+          </div>
+        </a>
+        <a href="{% url 'order' %}?name=Relaxed+Short+Full+Sleeve+jacket&img=Images/jacket-5.jpg&tk=645.00">
+          <div class="bg-white p-4 flex shadow rounded hover:shadow-lg hover:scale-105 transition cursor-pointer">
+            <div class="basis-2/4">
+              <img src="{% static 'Images/jacket-5.jpg' %}" alt="" >
+            </div>
+            <div class="basis-2/4">
+              <p class="font-medium  prodt ">Relaxed Short Full Sleeve jacket</p>
+            <p class="text-red-500 font-bold">645.00 &#2547;</p>
+            <p class="text-sm text-gray-500">jacket</p>
+            </div>
+          </div>
+        </a>
+      </div>
+    </section>
+
+    <section >
+      <h2 class="text-2xl font-bold mb-6  prodt ">Deal Of The Day</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 items-center">
+        <!-- Product Image -->
+        <div class="flex justify-center">
+          <img src="{% static 'Images/shampoo.jpg' %}" alt="Old Spice Pack" class="rounded-lg hover:scale-105">
+        </div>
+
+        <!-- Product Details -->
+        <div class="space-y-4">
+          <div class="text-yellow-500 text-xl">★★★★☆</div>
+          <h3 class="text-xl font-semibold">Shampoo, Conditioner & Facewash Packs</h3>
+          <p class="text-gray-600 text-sm">Sampo Group is a leading Nordic insurance company specializing in property and casualty (P&C) insurance, with operations across Europe.</p>
+
+          <div class="flex items-center space-x-4">
+            <span class="text-red-600 text-2xl font-bold">$150.00</span>
+            <span class="line-through text-gray-500">$200.00</span>
+          </div>
+
+          <a href="{% url 'order' %}?name=Shampoo%2C+Conditioner+%26+Facewash+Packs&img=Images/shampoo.jpg&tk=150.00">
+            <button class="bg-pink-600 text-white px-6 py-2 rounded hover:bg-pink-700 transition">ADD TO CART</button>
+          </a>
+
+          <div class="flex justify-between text-sm text-gray-600 pt-2">
+            <span>Already Sold: <strong>20</strong></span>
+            <span>Available: <strong>40</strong></span>
+          </div>
+
+          <!-- Countdown -->
+          <div class="mt-4">
+            <p class="text-red-600 font-semibold mb-2  prodt ">HURRY UP! OFFER ENDS IN:</p>
+            <div class="grid grid-cols-4 gap-2 text-center">
+              <div class="bg-gray-100 p-2 rounded">
+                <p class="text-xl font-bold">360</p>
+                <p class="text-xs text-gray-500">Days</p>
+              </div>
+              <div class="bg-gray-100 p-2 rounded">
+                <p class="text-xl font-bold">24</p>
+                <p class="text-xs text-gray-500">Hours</p>
+              </div>
+              <div class="bg-gray-100 p-2 rounded">
+                <p class="text-xl font-bold">59</p>
+                <p class="text-xs text-gray-500">Minutes</p>
+              </div>
+              <div class="bg-gray-100 p-2 rounded">
+                <p class="text-xl font-bold">00</p>
+                <p class="text-xs text-gray-500">Seconds</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 🆕 New Products -->
+    <section class="bg-white p-6 shadow rounded">
+      <h2 class="text-2xl font-bold mb-6">New Products</h2>
+      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
+
+        <!-- Product Card 1 -->
+        <a href="{% url 'order' %}?name=Mens+Winter+Leathers+Jackets&img=Images/jacket-1.jpg&tk=48.00">
+          <div class="bg-white shadow rounded p-4 relative hover:scale-100 transition duration-300 ">
+            <span class="absolute top-2 left-2 bg-green-500 text-white text-xs px-2 py-1 rounded">15%</span>
+            <img src="{% static 'Images/jacket-1.jpg' %}" alt="Mens Winter Leathers Jackets" class="mx-auto mb-3 rounded">
+            <h3 class="font-semibold text-center  prodt ">Mens Winter Leathers Jackets</h3>
+            <p class="text-yellow-500 text-sm text-center">★★★★☆</p>
+            <div class="text-center">
+              <p class="line-through text-gray-500 text-sm">$75.00</p>
+              <p class="text-red-600 font-bold">$48.00</p>
+            </div>
+          </div>
+        </a>
+
+        <!-- Product Card 2 -->
+        <a href="{% url 'order' %}?name=Pure+Garment+Dyed+Cotton+Shirt&img=Images/shirt-1.jpg&tk=45.00">
+          <div class="bg-white shadow rounded p-4 relative hover:scale-100 transition duration-300 ">
+            <span class="absolute top-2 left-2 bg-black text-white text-xs px-2 py-1 rounded">SALE</span>
+            <span class="absolute top-2 right-2 bg-pink-500 text-white text-xs px-2 py-1 rounded">SHIRT</span>
+            <img src="{% static 'Images/shirt-1.jpg' %}" alt="Pure Garment Dyed Cotton Shirt" class="mx-auto mb-3 rounded">
+            <h3 class="font-semibold text-center  prodt ">Pure Garment Dyed Cotton Shirt</h3>
+            <p class="text-yellow-500 text-sm text-center">★★★★☆</p>
+            <div class="text-center">
+              <p class="line-through text-gray-500 text-sm">$50.00</p>
+              <p class="text-red-600 font-bold">$45.00</p>
+            </div>
+          </div>
+        </a>
+
+        <!-- Product Card 3 -->
+        <a href="{% url 'order' %}?name=MEN+Yarn+Fleece+Full-Zip+Jacket&img=Images/jacket-2.jpg&tk=58.00">
+          <div class="bg-white shadow rounded p-4 relative hover:scale-100 transition duration-300 ">
+            <span class="absolute top-2 right-2 bg-pink-500 text-white text-xs px-2 py-1 rounded">JACKET</span>
+            <img src="{% static 'Images/jacket-2.jpg' %}" alt="MEN Yarn Fleece Full-Zip Jacket" class="mx-auto mb-3 rounded">
+            <h3 class="font-semibold text-center  prodt ">MEN Yarn Fleece Full-Zip Jacket</h3>
+            <p class="text-yellow-500 text-sm text-center">★★★★☆</p>
+            <div class="text-center">
+              <p class="line-through text-gray-500 text-sm">$85.00</p>
+              <p class="text-red-600 font-bold">$58.00</p>
+            </div>
+          </div>
+        </a>
+
+        <!-- Product Card 4 -->
+        <a href="{% url 'order' %}?name=Black+Floral+Wrap+Midi+Skirt&img=Images/clothes-4.jpg&tk=25.00">
+          <div class="bg-white shadow rounded p-4 relative hover:scale-100 transition duration-300 ">
+            <span class="absolute top-2 left-2 bg-pink-500 text-white text-xs px-2 py-1 rounded">NEW</span>
+            <span class="absolute top-2 right-2 bg-pink-500 text-white text-xs px-2 py-1 rounded">SKIRT</span>
+            <img src="{% static 'Images/clothes-4.jpg' %}" alt="Black Floral Wrap Midi Skirt" class="mx-auto mb-3 rounded">
+            <h3 class="font-semibold text-center  prodt ">Black Floral Wrap Midi Skirt</h3>
+            <p class="text-yellow-500 text-sm text-center">★★★★☆</p>
+            <div class="text-center">
+              <p class="line-through text-gray-500 text-sm">$30.00</p>
+              <p class="text-red-600 font-bold">$25.00</p>
+            </div>
+          </div>
+        </a>
+        
+        <!-- Product Card 5 -->
+        <a href="{% url 'order' %}?name=Gray+Floral+Wrap+Jacket&img=Images/jacket-3.jpg&tk=25.00">
+          <div class="bg-white shadow rounded p-4 relative hover:scale-100 transition duration-300 ">
+            <span class="absolute top-2 left-2 bg-pink-500 text-white text-xs px-2 py-1 rounded">NEW</span>
+            <span class="absolute top-2 right-2 bg-pink-500 text-white text-xs px-2 py-1 rounded">jacket</span>
+            <img src="{% static 'Images/jacket-3.jpg' %}" alt="Gray Floral Wrap Jacket" class="mx-auto mb-3 rounded">
+            <h3 class="font-semibold text-center  prodt ">Gray Floral Wrap Jacket</h3>
+            <p class="text-yellow-500 text-sm text-center">★★★★☆</p>
+            <div class="text-center">
+              <p class="line-through text-gray-500 text-sm">$30.00</p>
+              <p class="text-red-600 font-bold">$25.00</p>
+            </div>
+          </div>
+        </a>
+        
+        <!-- Product Card 6 -->
+        <a href="{% url 'order' %}?name=Smart+watche+Vital+Plus&img=Images/watch-1.jpg&tk=25.00">
+          <div class="bg-white shadow rounded p-4 relative hover:scale-100 transition duration-300 ">
+            <span class="absolute top-2 left-2 bg-pink-500 text-white text-xs px-2 py-1 rounded">NEW</span>
+            <span class="absolute top-2 right-2 bg-pink-500 text-white text-xs px-2 py-1 rounded">Watch</span>
+            <img src="{% static 'Images/watch-1.jpg' %}" alt="Smart watche Vital Plus" class="mx-auto mb-3 rounded">
+            <h3 class="font-semibold text-center  prodt ">Smart watche Vital Plus</h3>
+            <p class="text-yellow-500 text-sm text-center">★★★★☆</p>
+            <div class="text-center">
+              <p class="line-through text-gray-500 text-sm">$30.00</p>
+              <p class="text-red-600 font-bold">$25.00</p>
+            </div>
+          </div>
+        </a>
+        
+        <!-- Product Card 7 -->
+        <a href="{% url 'order' %}?name=Trekking+%26+Running+Shoes+-+black&img=Images/sports-4.jpg&tk=25.00">
+          <div class="bg-white shadow rounded p-4 relative hover:scale-100 transition duration-300 ">
+            <span class="absolute top-2 left-2 bg-pink-500 text-white text-xs px-2 py-1 rounded">NEW</span>
+            <span class="absolute top-2 right-2 bg-pink-500 text-white text-xs px-2 py-1 rounded">Shows</span>
+            <img src="{% static 'Images/sports-4.jpg' %}" alt="Trekking & Running Shoes - black" class="mx-auto mb-3 rounded">
+            <h3 class="font-semibold text-center  prodt ">Trekking & Running Shoes - black</h3>
+            <p class="text-yellow-500 text-sm text-center">★★★★☆</p>
+            <div class="text-center">
+              <p class="line-through text-gray-500 text-sm">$30.00</p>
+              <p class="text-red-600 font-bold">$25.00</p>
+            </div>
+          </div>
+        </a>
+        
+        <!-- Product Card 8 -->
+        <a href="{% url 'order' %}?name=Men%27s+Leather+Formal+Wear+shoes&img=Images/sports-6.jpg&tk=25.00">
+          <div class="bg-white shadow rounded p-4 relative  hover:scale-100 transition duration-300 ">
+            <span class="absolute top-2 left-2 bg-pink-500 text-white text-xs px-2 py-1 rounded">NEW</span>
+            <span class="absolute top-2 right-2 bg-pink-500 text-white text-xs px-2 py-1 rounded">shows</span>
+            <img src="{% static 'Images/sports-6.jpg' %}" alt="Men's Leather Formal Wear shoes" class="mx-auto mb-3 rounded">
+            <h3 class="font-semibold text-center  prodt ">Men's Leather Formal Wear shoes</h3>
+            <p class="text-yellow-500 text-sm text-center">★★★★☆</p>
+            <div class="text-center">
+              <p class="line-through text-gray-500 text-sm">$30.00</p>
+              <p class="text-red-600 font-bold">$25.00</p>
+            </div>
+          </div>
+        </a>
+
+      </div>
+    </section>
+  </main>
+</div>
+{% endblock %}

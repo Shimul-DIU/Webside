@@ -1,0 +1,11 @@
+{% extends "common_code/base.html" %}
+{% block title %}Success{% endblock %}
+{% block content %}
+<div class="flex items-center justify-center h-screen bg-gray-100">
+  <div class="bg-white p-6 rounded-md shadow text-center">
+    <h1 class="text-2xl font-bold text-green-600 mb-2">Order Successful!</h1>
+    <p>Thank you, {{ uname }}! We’ve received your order.</p>
+    <a href="{% url 'home' %}" class="mt-4 inline-block bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">Back to Home</a>
+  </div>
+</div>
+{% endblock %}
