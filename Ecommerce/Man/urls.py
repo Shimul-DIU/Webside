@@ -1,6 +1,8 @@
+from django.conf import settings
 from django.urls import path
+from django.conf.urls.static import static
 from . import views
 
 urlpatterns = [
-  path('details/',views.info, name='man')  
-]
+   path('product/',views.homepage,name='man'),
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

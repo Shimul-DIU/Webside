@@ -1,9 +1,11 @@
 from django.db import models
 
-# Create your models here.
-class Man_info(models.Model):
-    orderNumber=models.IntegerField()
-    personName=models.CharField(max_length=40)
-    phoneNumber=models.IntegerField()
-    address=models.CharField(max_length=60)
-    productName=models.CharField(max_length=40)
+class Product(models.Model):
+    name = models.CharField(max_length=100)
+    price = models.DecimalField(max_digits=10, decimal_places=2)
+    image = models.ImageField(upload_to='products/')
+    category = models.CharField(max_length=50)
+    description = models.TextField(blank=True)
+
+    def __str__(self):
+        return self.name

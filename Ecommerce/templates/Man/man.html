@@ -3,5 +3,19 @@
 {% load static %}
 {% block title %}Man{% endblock %}
 {% block content %}
-<h1>hi this is section </h1>
+{% for product in products %}
+  <a href="{% url 'order' %}?name={{ product.name }}&img={{ product.image.url }}&tk={{ product.price }}" >
+    <div class="bg-white p-4 flex justify-between shadow rounded hover:shadow-lg transition cursor-pointer">
+      <div class="basis-2/4">
+        <img src="{{ product.image.url }}" alt="{{ product.name }}" class="mx-auto mb-3 rounded">
+      </div>
+      <div class="basis-2/4">
+        <h3 class="font-semibold prodt">{{ product.name }}</h3>
+        <p class="text-red-600 font-bold">{{ product.price }} &#2547;</p>
+        <p class="text-sm text-gray-500">{{ product.category }}</p>
+      </div>
+    </div>
+  </a>
+{% endfor %}
+
 {% endblock %}
