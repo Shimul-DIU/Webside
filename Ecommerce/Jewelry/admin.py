@@ -1,6 +1,10 @@
 from django.contrib import admin
 from Jewelry.models import Productinfo
-class productinfo(admin.ModelAdmin):
-    list_display=('name','phoneNumber','product','address','quantity')
+
+class ProductinfoAdmin(admin.ModelAdmin):
+    list_display = ('name', 'phone', 'address', 'quantity')
+    search_fields = ('name', 'address')
+    list_filter = ('quantity',)
+
 # Register your models here.
-admin.site.register(Productinfo)
+admin.site.register(Productinfo, ProductinfoAdmin)

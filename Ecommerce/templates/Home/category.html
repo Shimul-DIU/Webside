@@ -1,0 +1,36 @@
+{% extends 'common_code/base.html' %}
+{% load static %}
+
+{% block title %}{{ category_name }} - Shimul Ecommerce{% endblock %}
+
+{% block content %}
+<div class="min-h-screen bg-gray-100 py-8 px-4">
+    <div class="max-w-7xl mx-auto">
+        <h1 class="text-4xl font-bold text-gray-800 mb-2">{{ category_name }}</h1>
+        <p class="text-gray-600 mb-8">Browse our collection of {{ category_name|lower }}</p>
+
+        {% if products %}
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+            {% for product in products %}
+            <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition duration-300">
+                {% if product.image %}
+                <img src="{{ product.image.url }}" alt="{{ product.name }}" class="w-full h-48 object-cover">
+                {% else %}
+                <div class="w-full h-48 bg-gray-200 flex items-center justify-center"><i class="fas fa-image text-3xl text-gray-400"></i></div>
+                {% endif %}
+                <div class="p-4">
+                    <a href="{% url 'product_detail' product.id %}" class="font-semibold text-gray-800 hover:text-blue-600 line-clamp-2">{{ product.name }}</a>
+                    <div class="flex justify-between items-center mt-3">
+                        <span class="text-2xl font-bold text-blue-600">৳{{ product.price }}</span>
+                        <a href="{% url 'product_detail' product.id %}" class="bg-blue-600 hover:bg-blue-700 text-white px-3 py-2 rounded">View</a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        {% else %}
+        <div class="text-center py-12"><i class="fas fa-inbox text-6xl text-gray-300 mb-4"></i><h2 class="text-2xl font-bold text-gray-800">No products found</h2></div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

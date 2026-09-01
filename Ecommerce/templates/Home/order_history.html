@@ -1,0 +1,107 @@
+{% extends 'common_code/base.html' %}
+{% load static %}
+
+{% block title %}Order History - Shimul Ecommerce{% endblock %}
+
+{% block content %}
+<div class="min-h-screen bg-gray-100 py-8 px-4">
+    <div class="max-w-6xl mx-auto">
+        <h1 class="text-4xl font-bold text-gray-800 mb-8">My Orders</h1>
+
+        {% if orders %}
+        <div class="space-y-6 mb-8">
+            {% for order in orders %}
+            <div class="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition duration-300">
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-4">
+                    <div>
+                        <p class="text-gray-600 text-sm">Order Number</p>
+                        <a href="{% url 'order_detail' order.id %}" class="text-xl font-bold text-blue-600 hover:underline">#{{ order.id }}</a>
+                    </div>
+                    <div>
+                        <p class="text-gray-600 text-sm">Order Date</p>
+                        <p class="font-semibold text-gray-800">{{ order.created_at|date:"M d, Y" }}</p>
+                    </div>
+                    <div>
+                        <p class="text-gray-600 text-sm">Total Amount</p>
+                        <p class="text-2xl font-bold text-blue-600">৳{{ order.total_price }}</p>
+                    </div>
+                    <div>
+                        <p class="text-gray-600 text-sm">Status</p>
+                        <p class="mt-1">
+                            {% if order.status == 'pending' %}
+                            <span class="inline-block bg-yellow-100 text-yellow-800 px-3 py-1 rounded-full font-semibold">Pending</span>
+                            {% elif order.status == 'confirmed' %}
+                            <span class="inline-block bg-blue-100 text-blue-800 px-3 py-1 rounded-full font-semibold">Confirmed</span>
+                            {% elif order.status == 'shipped' %}
+                            <span class="inline-block bg-purple-100 text-purple-800 px-3 py-1 rounded-full font-semibold">Shipped</span>
+                            {% elif order.status == 'delivered' %}
+                            <span class="inline-block bg-green-100 text-green-800 px-3 py-1 rounded-full font-semibold">Delivered</span>
+                            {% elif order.status == 'cancelled' %}
+                            <span class="inline-block bg-red-100 text-red-800 px-3 py-1 rounded-full font-semibold">Cancelled</span>
+                            {% endif %}
+                        </p>
+                    </div>
+                </div>
+
+                <div class="border-t border-gray-200 pt-4">
+                    <p class="text-gray-600 mb-2">
+                        <i class="fas fa-map-marker-alt text-blue-600 mr-2"></i>
+                        <strong>Shipping to:</strong> {{ order.name }}, {{ order.address }}
+                    </p>
+                    <p class="text-gray-600 mb-3">
+                        <i class="fas fa-credit-card text-blue-600 mr-2"></i>
+                        <strong>Payment Method:</strong> {{ order.get_payment_method_display }}
+                    </p>
+
+                    <div class="flex gap-3 mt-4">
+                        <a href="{% url 'order_detail' order.id %}" class="inline-block bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-6 rounded-lg transition duration-200">
+                            <i class="fas fa-eye"></i> View Details
+                        </a>
+                        {% if order.status == 'delivered' %}
+                        <a href="{% url 'product_detail' order.orderitem_set.first.product.id %}" class="inline-block bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-6 rounded-lg transition duration-200">
+                            <i class="fas fa-redo"></i> Buy Again
+                        </a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
+        <!-- Pagination -->
+        {% if orders.has_other_pages %}
+        <div class="flex justify-center items-center gap-2">
+            {% if orders.has_previous %}
+            <a href="?page=1" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">First</a>
+            <a href="?page={{ orders.previous_page_number }}" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">Previous</a>
+            {% endif %}
+
+            {% for num in orders.paginator.page_range %}
+                {% if orders.number == num %}
+                <span class="px-4 py-2 bg-blue-800 text-white rounded-lg">{{ num }}</span>
+                {% else %}
+                <a href="?page={{ num }}" class="px-4 py-2 bg-gray-300 text-gray-800 rounded-lg hover:bg-gray-400">{{ num }}</a>
+                {% endif %}
+            {% endfor %}
+
+            {% if orders.has_next %}
+            <a href="?page={{ orders.next_page_number }}" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">Next</a>
+            <a href="?page={{ orders.paginator.num_pages }}" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">Last</a>
+            {% endif %}
+        </div>
+        {% endif %}
+
+        {% else %}
+        <!-- No Orders -->
+        <div class="bg-white rounded-lg shadow-md p-12 text-center">
+            <i class="fas fa-inbox text-6xl text-gray-300 mb-4"></i>
+            <h2 class="text-3xl font-bold text-gray-800 mb-2">No Orders Yet</h2>
+            <p class="text-gray-600 mb-6">You haven't placed any orders yet</p>
+            <a href="{% url 'products' %}" class="inline-block bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-8 rounded-lg transition duration-200">
+                <i class="fas fa-shopping-bag"></i> Start Shopping
+            </a>
+        </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

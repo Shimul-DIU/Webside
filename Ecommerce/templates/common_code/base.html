@@ -6,7 +6,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}Ecommerc{% endblock %}</title>
-    
+
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
 
@@ -77,20 +77,48 @@
                 </svg>
             </button>
             <div class="md:flex md:w-full  justify-around" id="basis_r">
-                <a href="{% url 'login' %}" title="person">
-                    <svg xmlns="http://www.w3.org/2000/svg" title="Person"  fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="md:size-8 size-5 hover:stroke-blue-700">
+                <!-- Wishlist -->
+                <a href="#" title="Wishlist">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="md:size-8 size-5 hover:stroke-blue-700">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12Z" />
+                </svg></a>
+
+                <!-- Shopping Cart -->
+                <a href="{% url 'cart' %}" title="Shopping Cart" class="relative">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="md:size-8 size-5 hover:stroke-blue-700">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 8.25h19.5M2.25 9h19.5m-16.5 5.25h6m-6 2.25h3m-3.75 3h15a2.25 2.25 0 0 0 2.25-2.25V6.75A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25v10.5A2.25 2.25 0 0 0 4.5 19.5Z" />
+                </svg>
+                    {% if cart_count %}
+                    <span class="absolute -top-2 -right-2 bg-red-500 text-white text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center">{{ cart_count }}</span>
+                    {% endif %}
+                </a>
+
+                <!-- User Menu -->
+                {% if user.is_authenticated %}
+                <div class="relative group">
+                    <a href="{% url 'profile' %}" title="Account">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="md:size-8 size-5 hover:stroke-blue-700">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M17.982 18.725A7.488 7.488 0 0 0 12 15.75a7.488 7.488 0 0 0-5.982 2.975m11.963 0a9 9 0 1 0-11.963 0m11.963 0A8.966 8.966 0 0 1 12 21a8.966 8.966 0 0 1-5.982-2.275M15 9.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+                        </svg>
+                    </a>
+                    <div class="absolute right-0 hidden group-hover:block bg-white text-black rounded-md shadow-lg py-2 min-w-48 z-50">
+                        <div class="px-4 py-2 border-b">{{ user.username }}</div>
+                        <a href="{% url 'profile' %}" class="block px-4 py-2 hover:bg-gray-200">My Profile</a>
+                        <a href="{% url 'order_history' %}" class="block px-4 py-2 hover:bg-gray-200">My Orders</a>
+                        <a href="{% url 'update_profile' %}" class="block px-4 py-2 hover:bg-gray-200">Update Profile</a>
+                        {% if user.is_staff %}
+                        <a href="/admin/" class="block px-4 py-2 hover:bg-gray-200 border-t">Admin Panel</a>
+                        {% endif %}
+                        <a href="{% url 'logout' %}" class="block px-4 py-2 hover:bg-gray-200 border-t text-red-600 font-semibold">Logout</a>
+                    </div>
+                </div>
+                {% else %}
+                <a href="{% url 'login' %}" title="Login">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="md:size-8 size-5 hover:stroke-blue-700">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M17.982 18.725A7.488 7.488 0 0 0 12 15.75a7.488 7.488 0 0 0-5.982 2.975m11.963 0a9 9 0 1 0-11.963 0m11.963 0A8.966 8.966 0 0 1 12 21a8.966 8.966 0 0 1-5.982-2.275M15 9.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
                     </svg>
                 </a>
-                <a href="" title="herd">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="md:size-8 size-5 hover:stroke-blue-700 " >
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12Z" />
-                </svg></a>
-                <a href=""title="card">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="md:size-8 size-5 hover:stroke-blue-700">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 8.25h19.5M2.25 9h19.5m-16.5 5.25h6m-6 2.25h3m-3.75 3h15a2.25 2.25 0 0 0 2.25-2.25V6.75A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25v10.5A2.25 2.25 0 0 0 4.5 19.5Z" />
-                </svg></a>
-                
+                {% endif %}
             </div>
         </div>
     </header>
@@ -156,7 +184,7 @@
     <h2>COSMETICS:</h2>
     <p>Shampoo | Bodywash | Facewash | Makeup Kit | Liner | Lipstick | Perfume | Body Soap | Scrub | Hair Gel | Hair Colors | Hair Dye | Sunscreen | Skin Lotion | Liner | Lipstick</p>
     </div>
-    
+
     </div>
 
     <br><br>
@@ -228,7 +256,7 @@
 
 
     <!-- Scripts -->
-    
+
     <script src="https://unpkg.com/flowbite@latest/dist/flowbite.min.js"></script>
     <script src="{% static 'js/home.js' %}"></script>
 

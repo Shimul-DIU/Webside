@@ -1,0 +1,42 @@
+{% extends 'common_code/base.html' %}
+
+{% block title %}Update Profile - Shimul Ecommerce{% endblock %}
+
+{% block content %}
+<div class="min-h-screen bg-gray-100 py-8 px-4">
+    <div class="max-w-2xl mx-auto">
+        <h1 class="text-4xl font-bold text-gray-800 mb-8">Update Profile</h1>
+
+        <div class="bg-white rounded-lg shadow-md p-6">
+            <form method="POST" class="space-y-6">
+                {% csrf_token %}
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                        <label class="block text-gray-700 font-semibold mb-2">First Name</label>
+                        <input type="text" name="first_name" value="{{ user.first_name }}" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    </div>
+                    <div>
+                        <label class="block text-gray-700 font-semibold mb-2">Last Name</label>
+                        <input type="text" name="last_name" value="{{ user.last_name }}" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-gray-700 font-semibold mb-2">Email Address</label>
+                    <input type="email" name="email" value="{{ user.email }}" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                </div>
+
+                <div class="flex gap-4">
+                    <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-6 rounded-lg transition duration-200">
+                        <i class="fas fa-save"></i> Save Changes
+                    </button>
+                    <a href="{% url 'profile' %}" class="bg-gray-600 hover:bg-gray-700 text-white font-bold py-2 px-6 rounded-lg transition duration-200">
+                        <i class="fas fa-times"></i> Cancel
+                    </a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

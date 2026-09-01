@@ -1,0 +1,94 @@
+{% extends 'common_code/base.html' %}
+{% load static %}
+
+{% block title %}My Profile - Shimul Ecommerce{% endblock %}
+
+{% block content %}
+<div class="min-h-screen bg-gray-100 py-8 px-4">
+    <div class="max-w-4xl mx-auto">
+        <h1 class="text-4xl font-bold text-gray-800 mb-8">My Profile</h1>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <!-- User Info -->
+            <div class="bg-white rounded-lg shadow-md p-6">
+                <div class="text-center mb-6">
+                    <div class="w-24 h-24 bg-blue-200 rounded-full mx-auto flex items-center justify-center mb-4">
+                        <i class="fas fa-user text-4xl text-blue-600"></i>
+                    </div>
+                    <h2 class="text-2xl font-bold text-gray-800">{{ user.username }}</h2>
+                    <p class="text-gray-600">{{ user.email }}</p>
+                </div>
+
+                <div class="space-y-3 border-t border-gray-200 pt-6">
+                    <p>
+                        <strong>Name:</strong> {{ user.get_full_name|default:"Not set" }}
+                    </p>
+                    <p>
+                        <strong>Member Since:</strong> {{ user.date_joined|date:"M d, Y" }}
+                    </p>
+                </div>
+
+                <div class="mt-6 space-y-2">
+                    <a href="{% url 'update_profile' %}" class="block text-center bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg transition duration-200">
+                        <i class="fas fa-edit"></i> Edit Profile
+                    </a>
+                    <a href="{% url 'logout' %}" class="block text-center bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-lg transition duration-200">
+                        <i class="fas fa-sign-out-alt"></i> Logout
+                    </a>
+                </div>
+            </div>
+
+            <!-- Recent Orders -->
+            <div class="md:col-span-2 bg-white rounded-lg shadow-md p-6">
+                <h2 class="text-2xl font-bold text-gray-800 mb-6">Recent Orders</h2>
+
+                {% if recent_orders %}
+                <div class="space-y-4">
+                    {% for order in recent_orders %}
+                    <div class="border border-gray-200 rounded-lg p-4 hover:bg-gray-50 transition duration-200">
+                        <div class="flex justify-between items-start mb-2">
+                            <div>
+                                <a href="{% url 'order_detail' order.id %}" class="text-blue-600 hover:text-blue-800 font-semibold text-lg">
+                                    Order #{{ order.id }}
+                                </a>
+                                <p class="text-sm text-gray-600">{{ order.created_at|date:"M d, Y g:i A" }}</p>
+                            </div>
+                            <span class="text-xl font-bold text-blue-600">৳{{ order.total_price }}</span>
+                        </div>
+
+                        <p class="text-gray-600 text-sm mb-3">{{ order.orderitem_set.count }} item(s)</p>
+
+                        <div class="flex items-center justify-between">
+                            {% if order.status == 'pending' %}
+                            <span class="inline-block bg-yellow-100 text-yellow-800 px-3 py-1 rounded-full text-sm font-semibold">Pending</span>
+                            {% elif order.status == 'confirmed' %}
+                            <span class="inline-block bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm font-semibold">Confirmed</span>
+                            {% elif order.status == 'shipped' %}
+                            <span class="inline-block bg-purple-100 text-purple-800 px-3 py-1 rounded-full text-sm font-semibold">Shipped</span>
+                            {% elif order.status == 'delivered' %}
+                            <span class="inline-block bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm font-semibold">Delivered</span>
+                            {% endif %}
+
+                            <a href="{% url 'order_detail' order.id %}" class="text-blue-600 hover:text-blue-800 text-sm font-semibold">
+                                View Details <i class="fas fa-arrow-right"></i>
+                            </a>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+
+                <div class="mt-6 pt-6 border-t border-gray-300">
+                    <a href="{% url 'order_history' %}" class="text-blue-600 hover:text-blue-800 font-semibold">
+                        View All Orders <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+                {% else %}
+                <p class="text-gray-600 text-center py-8">
+                    No orders yet. <a href="{% url 'products' %}" class="text-blue-600 hover:text-blue-800">Start shopping!</a>
+                </p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

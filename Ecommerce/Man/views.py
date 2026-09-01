@@ -1,6 +1,6 @@
 from django.shortcuts import render
-from .models import Product
+from Home.models import Product
 
 def homepage(request):
-    products = Product.objects.all()
+    products = Product.objects.filter(category='men', is_active=True).order_by('-created_at')
     return render(request, 'Man/man.html', {'products': products})

@@ -1,0 +1,189 @@
+{% extends 'common_code/base.html' %}
+{% load static %}
+
+{% block title %}Order Confirmed - Shimul Ecommerce{% endblock %}
+
+{% block content %}
+<div class="min-h-screen bg-gray-100 py-8 px-4">
+    <div class="max-w-2xl mx-auto">
+        <!-- Success Message -->
+        <div class="bg-white rounded-lg shadow-md p-8 text-center mb-8">
+            <div class="mb-6">
+                <i class="fas fa-check-circle text-6xl text-green-500"></i>
+            </div>
+            <h1 class="text-4xl font-bold text-gray-800 mb-2">Order Confirmed!</h1>
+            <p class="text-gray-600 text-lg mb-4">Thank you for your purchase</p>
+            <p class="text-gray-600">Your order has been placed successfully. You'll receive an email confirmation shortly.</p>
+        </div>
+
+        <!-- Order Details -->
+        <div class="bg-white rounded-lg shadow-md p-8 mb-8">
+            <h2 class="text-2xl font-bold text-gray-800 mb-6">Order Details</h2>
+
+            <!-- Order Number & Date -->
+            <div class="grid grid-cols-2 gap-4 mb-8 pb-8 border-b border-gray-300">
+                <div>
+                    <p class="text-gray-600 text-sm">Order Number</p>
+                    <p class="text-2xl font-bold text-blue-600">#{{ order.id }}</p>
+                </div>
+                <div>
+                    <p class="text-gray-600 text-sm">Order Date</p>
+                    <p class="text-lg font-semibold text-gray-800">{{ order.created_at|date:"M d, Y \a\t g:i A" }}</p>
+                </div>
+                <div>
+                    <p class="text-gray-600 text-sm">Status</p>
+                    <p class="text-lg font-semibold">
+                        <span class="inline-block bg-blue-100 text-blue-800 px-3 py-1 rounded-full">{{ order.status|upper }}</span>
+                    </p>
+                </div>
+                <div>
+                    <p class="text-gray-600 text-sm">Payment Method</p>
+                    <p class="text-lg font-semibold text-gray-800">{{ order.get_payment_method_display }}</p>
+                </div>
+            </div>
+
+            <!-- Delivery Address -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8 pb-8 border-b border-gray-300">
+                <div>
+                    <h3 class="text-lg font-semibold text-gray-800 mb-3">Shipping Address</h3>
+                    <p class="text-gray-700 font-semibold">{{ order.name }}</p>
+                    <p class="text-gray-600">{{ order.address }}</p>
+                    {% if order.city %}<p class="text-gray-600">{{ order.city }}</p>{% endif %}
+                    {% if order.postal_code %}<p class="text-gray-600">{{ order.postal_code }}</p>{% endif %}
+                    <p class="text-gray-600 mt-2">
+                        <i class="fas fa-phone"></i> {{ order.phone }}
+                    </p>
+                    {% if order.email %}<p class="text-gray-600">
+                        <i class="fas fa-envelope"></i> {{ order.email }}
+                    </p>{% endif %}
+                </div>
+
+                <div>
+                    <h3 class="text-lg font-semibold text-gray-800 mb-3">Order Summary</h3>
+                    <div class="space-y-3">
+                        <div class="flex justify-between">
+                            <span class="text-gray-700">Subtotal:</span>
+                            <span class="font-semibold">৳{{ order.total_price }}</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-gray-700">Shipping:</span>
+                            <span class="font-semibold text-green-600">Free</span>
+                        </div>
+                        <div class="flex justify-between text-lg font-bold text-blue-600 pt-3 border-t border-gray-300">
+                            <span>Total:</span>
+                            <span>৳{{ order.total_price }}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Items -->
+            <div>
+                <h3 class="text-lg font-semibold text-gray-800 mb-4">Items Ordered</h3>
+                <table class="w-full">
+                    <thead>
+                        <tr class="border-b-2 border-gray-300">
+                            <th class="text-left text-gray-700 font-semibold py-2">Product</th>
+                            <th class="text-center text-gray-700 font-semibold py-2">Quantity</th>
+                            <th class="text-right text-gray-700 font-semibold py-2">Price</th>
+                            <th class="text-right text-gray-700 font-semibold py-2">Total</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for item in items %}
+                        <tr class="border-b border-gray-200">
+                            <td class="py-3 text-gray-700">
+                                <a href="{% url 'product_detail' item.product.id %}" class="hover:text-blue-600">
+                                    {{ item.product.name }}
+                                </a>
+                            </td>
+                            <td class="py-3 text-center text-gray-700">{{ item.quantity }}</td>
+                            <td class="py-3 text-right text-gray-700">৳{{ item.price }}</td>
+                            <td class="py-3 text-right font-semibold text-blue-600">৳{{ item.get_cost }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Bkash Payment Instructions -->
+        <div class="bg-orange-50 border-2 border-orange-300 rounded-lg p-8 mb-8">
+            <div class="flex items-center mb-6">
+                <i class="fas fa-mobile text-4xl text-orange-500 mr-4"></i>
+                <div>
+                    <h2 class="text-2xl font-bold text-gray-800">Bkash Payment Instructions</h2>
+                    <p class="text-gray-600">Complete your payment to confirm order</p>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Payment Details -->
+                <div class="bg-white rounded p-4 border border-orange-200">
+                    <h3 class="text-lg font-semibold text-gray-800 mb-4">Payment Details</h3>
+                    <div class="space-y-3">
+                        <div>
+                            <p class="text-gray-600 text-sm">Amount to Send:</p>
+                            <p class="text-3xl font-bold text-orange-600">৳{{ order.total_price }}</p>
+                        </div>
+                        <div>
+                            <p class="text-gray-600 text-sm">Send to Bkash Number:</p>
+                            <p class="text-xl font-bold text-gray-800">01700000000</p>
+                            <p class="text-xs text-gray-500 mt-1">(This is our shop's Bkash number)</p>
+                        </div>
+                        <div>
+                            <p class="text-gray-600 text-sm">Your Bkash Number (Recorded):</p>
+                            <p class="text-lg font-semibold text-gray-800">{{ order.bkash_number }}</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Instructions -->
+                <div class="bg-white rounded p-4 border border-orange-200">
+                    <h3 class="text-lg font-semibold text-gray-800 mb-4">How to Pay</h3>
+                    <ol class="text-gray-700 space-y-2 list-decimal list-inside text-sm">
+                        <li>Open your Bkash app or dial <strong>*247#</strong></li>
+                        <li>Select "Send Money" option</li>
+                        <li>Enter recipient: <strong>01700000000</strong></li>
+                        <li>Enter amount: <strong>৳{{ order.total_price }}</strong></li>
+                        <li>Enter your PIN and confirm transaction</li>
+                        <li>You'll receive a confirmation message</li>
+                        <li>We'll confirm receipt and process your order</li>
+                    </ol>
+                </div>
+            </div>
+
+            <div class="bg-yellow-50 border border-yellow-200 rounded p-4 mt-4">
+                <p class="text-yellow-800 text-sm font-semibold">
+                    <i class="fas fa-info-circle mr-2"></i>
+                    <strong>Important:</strong> Your order is confirmed but payment is pending. Please send the payment within 24 hours to avoid order cancellation.
+                </p>
+            </div>
+        </div>
+
+        <!-- Next Steps -->
+        <div class="bg-blue-50 border border-blue-200 rounded-lg p-6 mb-8">
+            <h3 class="text-xl font-semibold text-gray-800 mb-4">What's Next?</h3>
+            <ul class="space-y-2 text-gray-700">
+                <li><i class="fas fa-check text-green-600 mr-2"></i> Your order will be prepared for shipping</li>
+                <li><i class="fas fa-check text-green-600 mr-2"></i> You'll receive a shipping notification with tracking details</li>
+                <li><i class="fas fa-check text-green-600 mr-2"></i> Estimated delivery within 3-5 business days</li>
+                <li><i class="fas fa-check text-green-600 mr-2"></i> Check your email for order updates</li>
+            </ul>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            {% if user.is_authenticated %}
+            <a href="{% url 'order_history' %}" class="block text-center bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-lg transition duration-200">
+                <i class="fas fa-history"></i> View All Orders
+            </a>
+            {% endif %}
+
+            <a href="{% url 'products' %}" class="block text-center bg-gray-600 hover:bg-gray-700 text-white font-bold py-3 px-6 rounded-lg transition duration-200">
+                <i class="fas fa-shopping-bag"></i> Continue Shopping
+            </a>
+        </div>
+    </div>
+</div>
+{% endblock %}

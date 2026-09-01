@@ -1,0 +1,115 @@
+{% extends 'common_code/base.html' %}
+{% load static %}
+
+{% block title %}Shopping Cart - Shimul Ecommerce{% endblock %}
+
+{% block content %}
+<div class="min-h-screen bg-gray-100 py-8 px-4">
+    <div class="max-w-6xl mx-auto">
+        <h1 class="text-4xl font-bold text-gray-800 mb-8">Shopping Cart</h1>
+
+        {% if cart.items.all %}
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <!-- Cart Items -->
+            <div class="lg:col-span-2 bg-white rounded-lg shadow-md p-6">
+                <h2 class="text-2xl font-bold text-gray-800 mb-6">Items in Cart</h2>
+
+                <div class="space-y-4">
+                    {% for item in cart.items.all %}
+                    <div class="flex gap-4 border-b border-gray-300 pb-4">
+                        <!-- Product Image -->
+                        <div class="w-20 h-20 bg-gray-200 rounded-lg overflow-hidden">
+                            {% if item.product.image %}
+                            <img src="{{ item.product.image.url }}" alt="{{ item.product.name }}" class="w-full h-full object-cover">
+                            {% else %}
+                            <div class="w-full h-full flex items-center justify-center text-gray-400">
+                                <i class="fas fa-image"></i>
+                            </div>
+                            {% endif %}
+                        </div>
+
+                        <!-- Product Details -->
+                        <div class="flex-1">
+                            <a href="{% url 'product_detail' item.product.id %}" class="font-semibold text-gray-800 hover:text-blue-600">
+                                {{ item.product.name }}
+                            </a>
+                            <p class="text-gray-600 text-sm">৳{{ item.product.price }} each</p>
+
+                            <!-- Quantity Controls -->
+                            <form method="POST" action="{% url 'update_cart' item.id %}" class="flex items-center gap-2 mt-2">
+                                {% csrf_token %}
+                                <input type="number" name="quantity" value="{{ item.quantity }}" min="1" max="{{ item.product.stock }}" class="w-16 px-2 py-1 border border-gray-300 rounded">
+                                <button type="submit" class="text-sm bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded">Update</button>
+                                <a href="{% url 'remove_from_cart' item.id %}" class="text-sm bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded">Remove</a>
+                            </form>
+                        </div>
+
+                        <!-- Item Total -->
+                        <div class="text-right">
+                            <p class="text-lg font-bold text-blue-600">৳{{ item.get_cost }}</p>
+                            <p class="text-sm text-gray-500">{{ item.quantity }} items</p>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+
+                <!-- Clear Cart -->
+                <div class="mt-6 pt-6 border-t border-gray-300">
+                    <a href="{% url 'clear_cart' %}" class="inline-block bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-6 rounded-lg" onclick="return confirm('Are you sure you want to clear your entire cart?')">
+                        <i class="fas fa-trash"></i> Clear Cart
+                    </a>
+                </div>
+            </div>
+
+            <!-- Cart Summary -->
+            <div class="bg-white rounded-lg shadow-md p-6 h-fit">
+                <h2 class="text-2xl font-bold text-gray-800 mb-6">Order Summary</h2>
+
+                <div class="space-y-3 mb-6 pb-6 border-b border-gray-300">
+                    <div class="flex justify-between">
+                        <span class="text-gray-700">Items:</span>
+                        <span class="font-semibold">{{ cart.get_item_count }}</span>
+                    </div>
+                    <div class="flex justify-between">
+                        <span class="text-gray-700">Subtotal:</span>
+                        <span class="font-semibold">৳{{ total }}</span>
+                    </div>
+                    <div class="flex justify-between">
+                        <span class="text-gray-700">Shipping:</span>
+                        <span class="font-semibold text-green-600">Free</span>
+                    </div>
+                    <div class="flex justify-between">
+                        <span class="text-gray-700">Tax (15%):</span>
+                        <span class="font-semibold">৳{{ total|floatformat:0 }}</span>
+                    </div>
+                </div>
+
+                <div class="flex justify-between text-2xl font-bold text-blue-600 mb-6">
+                    <span>Total:</span>
+                    <span>৳{{ total }}</span>
+                </div>
+
+                <a href="{% url 'checkout' %}" class="w-full block text-center bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-4 rounded-lg transition duration-200 mb-3">
+                    <i class="fas fa-credit-card"></i> Proceed to Checkout
+                </a>
+
+                <a href="{% url 'products' %}" class="w-full block text-center bg-gray-600 hover:bg-gray-700 text-white font-bold py-3 px-4 rounded-lg transition duration-200">
+                    <i class="fas fa-shopping-bag"></i> Continue Shopping
+                </a>
+            </div>
+        </div>
+
+        {% else %}
+        <!-- Empty Cart -->
+        <div class="bg-white rounded-lg shadow-md p-12 text-center">
+            <i class="fas fa-shopping-cart text-6xl text-gray-300 mb-4"></i>
+            <h2 class="text-3xl font-bold text-gray-800 mb-2">Your Cart is Empty</h2>
+            <p class="text-gray-600 mb-6">Start shopping to add items to your cart</p>
+            <a href="{% url 'products' %}" class="inline-block bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-8 rounded-lg transition duration-200">
+                <i class="fas fa-shopping-bag"></i> Start Shopping
+            </a>
+        </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}
